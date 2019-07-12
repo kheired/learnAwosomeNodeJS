@@ -14,7 +14,7 @@ var server = net.createServer(function(conn) {
 
     // 接受到的第一份数据应当是用户输入的昵称
     if(!nickname) {
-      if(user[data]){
+      if(user[data]) {
         conn.write('\033[93m > nickname already in use. Try again; \033[39m');
         return
       } else {
@@ -22,14 +22,18 @@ var server = net.createServer(function(conn) {
         user[nickname] = conn;
 
         for(var i in user) {
-          user[i].write('\n \033[90m > ' + nickname + ' joined the room \033[39m\n');
+          // user[i].write('\n \033[90m > ' + nickname + ' joined the room\033[39m\n');
+          broadcast('\n \033[90m > ' + nickname + ' joined the room\033[39m\n');
         }
+
       }
     } else {
       // 否则，视为聊天消息
       for( var i in user) {
         if(i !== nickname) {
-          user[i].write('\033[96m > ' + nickname + ':\033[39m ' + data + '\n');
+          // user[i].write('\033[96m > ' + nickname + ':\033[39m ' + data + '\n');
+          broadcast('\033[96m > ' + nickname + ':\033[39m ' + data + '\n', true)
+
         }
       }
     }
@@ -53,6 +57,7 @@ var server = net.createServer(function(conn) {
 
   conn.on('data', function(data) {
     console.log(data);
+    // broadcast('\033[96m > ' + nickname + ':\033[39m ' + data + '\n', true)
 
   });
 
