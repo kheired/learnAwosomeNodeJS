@@ -1,4 +1,3 @@
-var qs = require('querystring');
 require('http').createServer(function main(req, res) {
 
       if('/' === req.url) {
@@ -22,18 +21,19 @@ require('http').createServer(function main(req, res) {
         req.on('end', function() {
           res.writeHead(200, { 'Content-Type': 'text/html' });
           res.end(
-              '<p>your name is <b>:'+ qs.parse(body).name +'</b></p>'
+              '<p>Content-Type:'+ req.headers['content-type'] +' </p>'
+              + '<p>Data:</p><pre>' + body + '</pre>'
           );
         })
       } else {
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end('not found')
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end(`ooo:${req.headers['content-type']}`)
       }
 
     }).listen(3000, function() {
   console.log('Listening on port 3000;');
-  console.log(qs.parse('name=XiaoGuiZi'));
-  console.log(qs.parse('name=XiaoGuiZi+rush'));
+  console.log(require('querystring').parse('name=XiaoGuiZi'));
+  console.log(require('querystring').parse('name=XiaoGuiZi+rush'));
 
 
 });

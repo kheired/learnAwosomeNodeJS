@@ -77,7 +77,7 @@ stream.on('end', function(chunk) {
 var stream = fs.vreateReadStream('my-file.txt');
 var fs = require('fs');
 // 获取工作目录下所有的文件
-var files = fs.readdirSync(process.cwd());
+var files = fs.readdirSync(process.cwd());-
 files.forEach(function(file) {
   // 监听'.css'后缀的文件
   if(/\.css$/.test(file)){
@@ -89,3 +89,6 @@ files.forEach(function(file) {
 })
 ```
 - 可以用``fs.watch(process.cwd())``监视整个目录
+
+## IRC协议
+``irc.free.node.net``
