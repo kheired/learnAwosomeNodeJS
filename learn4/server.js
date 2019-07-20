@@ -1,6 +1,16 @@
+var qs = require('querystring');
+
 require('http').createServer(function(req, res) {
-  res.writeHead(200);
-  res.end('Hello World');
+  var body = '';
+  req.on('data', function(chunk) {
+    body += chunk;
+  });
+  req.on('end', function() {
+    res.writeHead(200);
+    res.end('Done');
+    console.log('\n We got \033[90m' + qs.parse(body).name + '\033[39m\n');
+
+  })
 }).listen(3000, function() {
   console.log('server ok');
 
